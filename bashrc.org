@@ -1,0 +1,179 @@
+#+TITLE: Bash Config
+#+PROPERTY: header-args :tangle .bashrc
+
+* Table of Contents :toc:
+- [[#exports][Exports]]
+  - [[#setup-editor][Setup Editor]]
+  - [[#change-starship-config-folder][change starship config folder]]
+- [[#functions][Functions]]
+  - [[#navigate-using-lf][navigate using lf]]
+  - [[#print-out-aliases][Print out aliases]]
+- [[#aliases][Aliases]]
+  - [[#general][General]]
+  - [[#git-aliases][Git aliases]]
+  - [[#apps][Apps]]
+  - [[#emacs][Emacs]]
+  - [[#goto-directories][Goto Directories]]
+  - [[#emacs-bookmarks][Emacs Bookmarks]]
+- [[#starship-prompt][Starship Prompt]]
+- [[#switch-to-zsh][Switch to Zsh]]
+
+* Exports
+** Setup Editor
+#+begin_src shell
+export EDITOR='emacsclient -c'
+export VISUAL='emacsclient -c'
+#+end_src
+** change starship config folder
+#+begin_src shell
+export STARSHIP_CONFIG=~/.starship/config.toml
+export STARSHIP_CACHE=~/.starship/cache
+#+end_src
+* Functions
+** navigate using lf
+#+begin_src shell
+lfcd () {
+    tmp="$(mktemp)"
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        if [ -d "$dir" ]; then
+            if [ "$dir" != "$(pwd)" ]; then
+                cd "$dir"
+            fi
+        fi
+    fi
+}
+#+end_src
+** Print out aliases
+*** General aliases
+#+begin_src shell
+gal() {
+    echo "h  => show history of commands"
+    echo "du => show size of item in current directory"
+    echo "df => show size info of devices harddisk"
+    echo "la => show all item in directory"
+    echo "ld => give detailed output of ls"
+    echo "lx => sort ls output by extension."
+    echo "lk => sort ls output by size, biggest last."
+    echo "lr => output ls recursively."
+    echo "lh => Show hidden files."
+    echo "r  => source bashrc"
+    echo "rs => reload starship"
+}
+#+end_src
+*** Apps aliases
+#+begin_src shell
+aal() {
+    echo "ex  => explorer here"
+    echo "vp  => open vpn"
+    echo "vlc => open vlc"
+    echo "sp  => run speedtest"
+}
+#+end_src
+
+*** Emacs aliases
+#+begin_src shell
+eal() {
+    echo "emacw  => emacsclient in new frame"
+    echo "emacsw => connet to open frame"
+    echo "e      => runemacs"
+}
+#+end_src
+
+*** Goto Directory aliases
+#+begin_src shell
+dal() {
+    echo "nc => nvim config"
+    echo "ec => doom emacs config"
+    echo "it => projects directory"
+    echo "og => org directory"
+}
+#+end_src
+
+*** Emacs Bookmarks aliases
+#+begin_src shell
+bal() {
+    echo "be => bashrc"
+    echo "ve => viebrc"
+    echo "se => starhip config"
+}
+#+end_src
+
+* Aliases
+** General
+#+begin_src shell
+alias cls="clear"
+alias c="clear"
+alias c:='cd c:'
+alias d:='cd d:'
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias mkdir='mkdir -p'
+alias md='mkdir'
+alias rd='rm -rf'
+alias mf='touch'
+alias rf='rm'
+alias h='history'
+alias ..='cd ..'
+alias du='du -kh'
+alias df='df -kTh'
+alias ls='ls -h --color'
+alias la='ls -a'
+alias lx='ls -lXB'
+alias lk='ls -lSr'.
+alias ld="ls -lv --group-directories-first"
+alias lr='ld -R'
+alias lh='ld -A'
+alias ll='lfcd'
+alias r='source ~/.zshrc'
+#+end_src
+** Git aliases
+#+begin_src shell
+alias addup='git add -u'
+alias addall='git add .'
+alias branch='git branch'
+alias checkout='git checkout'
+alias clone='git clone'
+alias commit='git commit -m'
+alias pull='git pull origin'
+alias push='git push origin'
+alias stat='git status'  # 'status' is protected name so using 'stat' instead
+#+end_src
+** Apps
+#+begin_src shell
+alias vlc='/c/Program\ Files/VideoLAN/VLC/vlc.exe'
+alias sp='speedtest'
+alias vp='psiphon'
+alias doom='~/.emacs.d/bin/doom'
+alias ex='explorer .'
+#+end_src
+** Emacs
+#+begin_src shell
+alias emacsw='emacsclientw'
+alias emacw='emacsclientw -c'
+alias e='runemacs'
+#+end_src
+** Goto Directories
+#+begin_src shell
+alias it='cd ~/Desktop/Projects'
+alias og='cd ~/Desktop/Org'
+alias nc='cd ~/AppData/Local/nvim'
+alias ec='cd ~/.doom.d'
+#+end_src
+** Emacs Bookmarks
+#+begin_src shell
+alias be='emacsclientw -c ~/bashrc.org'
+alias ve='emacsclientw -c ~/.vieb/viebrc'
+alias se='emacsclientw -c ~/.starship/config.toml'
+#+end_src
+* Starship Prompt
+#+begin_src shell
+eval "$(starship init bash)"
+#+end_src
+* Switch to Zsh
+#+begin_src shell
+zsh
+#+end_src
