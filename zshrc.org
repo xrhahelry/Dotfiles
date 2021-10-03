@@ -155,6 +155,7 @@ alias la='ls -a'
 alias lx='ls -X'
 alias lk='ls -S'.
 alias ld="ls -l --group-dirs first"
+alias lh="ls -a -l --group-dirs first"
 alias lr='ld --tree'
 #+end_src
 ** Git
