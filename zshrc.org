@@ -81,6 +81,7 @@ gal() {
 lal() {
     echo "la => show all item in directory"
     echo "ld => detailed output"
+    echo "ld => detailed output with hidden items"
     echo "lx => sort ls output by extension."
     echo "lk => sort ls output by size, biggest last."
     echo "lr => output ls recursively."
@@ -196,5 +197,4 @@ alias ec='cd ~/.doom.d'
 #+begin_src shell
 alias ze='emacsclientw -c ~/zshrc.org'
 alias ve='emacsclientw -c ~/.vieb/viebrc'
-alias se='emacsclientw -c ~/.starship/config.toml'
 #+end_src
