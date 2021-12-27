@@ -1,41 +1,25 @@
-#+TITLE: Zsh Config
+#+TITLE: ZSH shell cofig
+#+AUTHOR: Sujal Bajracharya
 #+PROPERTY: header-args :tangle .zshrc
 
-* Table of Contents :toc:
-- [[#path-to-your-oh-my-zsh-installation][Path to your oh-my-zsh installation.]]
-- [[#set-theme][Set Theme]]
-- [[#oh-my-zsh-settings][Oh-My-Zsh settings]]
-- [[#plugins][Plugins]]
-- [[#resourcing-oh-my-zsh][Resourcing oh-my-zsh]]
-- [[#exports][Exports]]
-- [[#print-out-aliases][Print out aliases]]
-  - [[#general-aliases][General aliases]]
-  - [[#lsd-aliases][Lsd aliases]]
-  - [[#apps-aliases][Apps aliases]]
-  - [[#emacs-aliases][Emacs aliases]]
-  - [[#goto-directory-aliases][Goto Directory aliases]]
-  - [[#emacs-bookmarks-aliases][Emacs Bookmarks aliases]]
+* Table of contents :toc:
+- [[#oh-my-zsh-settings][Oh-My-Zsh Settings]]
+- [[#the-exports][The Exports]]
+- [[#custom-functions][Custom Functions]]
 - [[#aliases][Aliases]]
   - [[#general][General]]
   - [[#lsd][Lsd]]
   - [[#git][Git]]
   - [[#apps][Apps]]
-  - [[#emacs][Emacs]]
-  - [[#goto-directories][Goto Directories]]
-  - [[#emacs-bookmarks][Emacs Bookmarks]]
+  - [[#editor][Editor]]
+  - [[#chocolatey][Chocolatey]]
+  - [[#bookmarks][Bookmarks]]
 
-* Path to your oh-my-zsh installation.
+* Oh-My-Zsh Settings
 #+begin_src shell
 export ZSH="/c/Users/Sujal Bajracharya/.oh-my-zsh"
-#+end_src
-
-* Set Theme
-#+begin_src shell
 ZSH_THEME="robbyrussell"
-#+end_src
 
-* Oh-My-Zsh settings
-#+begin_src shell
 HYPHEN_INSENSITIVE="true"
 DISABLE_UPDATE_PROMPT="true"
 DISABLE_AUTO_TITLE="true"
@@ -43,30 +27,19 @@ ENABLE_CORRECTION="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 HIST_STAMPS="yyyy-mm-dd"
 DISABLE_UPDATE_PROMPT="true"
-#+end_src
 
-* Plugins
-#+begin_src
-plugins=(
-    git
-)
-#+end_src
-
-* Resourcing oh-my-zsh
-#+begin_src shell
 source $ZSH/oh-my-zsh.sh
 #+end_src
 
-* Exports
+* The Exports
 #+begin_src shell
 export LANG=en_US.UTF-8
 export EDITOR='emacsclientw -c'
-export VISUAL="emacsclientw -c -a runemacs"
-export ALTERNATE_EDITOR="emacsclientw -c -a runemacs"
+export VISUAL="emacsclientw -c"
+export ALTERNATE_EDITOR="emacsclientw -c"
 #+end_src
 
-* Print out aliases
-** General aliases
+* Custom Functions
 #+begin_src shell
 gal() {
     echo "h  => show history of commands"
@@ -74,10 +47,7 @@ gal() {
     echo "df => show size info of devices harddisk"
     echo "r  => source bashrc"
 }
-#+end_src
 
-** Lsd aliases
-#+begin_src shell
 lal() {
     echo "la => show all item in directory"
     echo "ld => detailed output"
@@ -87,43 +57,49 @@ lal() {
     echo "lr => output ls recursively."
 }
 
-#+end_src
-
-** Apps aliases
-#+begin_src shell
 aal() {
     echo "ex  => explorer here"
     echo "vp  => open vpn"
     echo "vlc => open vlc"
     echo "sp  => run speedtest"
+    echo "nes => open nestopia"
+    echo "pc  => open processing"
 }
-#+end_src
 
-** Emacs aliases
-#+begin_src shell
 eal() {
     echo "emacw  => emacsclient in new frame"
     echo "emacsw => connet to open frame"
     echo "e      => runemacs"
 }
-#+end_src
 
-** Goto Directory aliases
-#+begin_src shell
+cal() {
+    echo "ci => install package"
+    echo "cu => uninstall package"
+    echo "cs => search package"
+    echo "cl => list packages"
+}
+
 dal() {
     echo "nc => nvim config"
     echo "ec => doom emacs config"
     echo "it => projects directory"
     echo "og => org directory"
 }
-#+end_src
 
-** Emacs Bookmarks aliases
-#+begin_src shell
 bal() {
     echo "ze => zshrc"
     echo "ve => viebrc"
     echo "se => starhip config"
+}
+
+gede() {
+  mv ~/.emacs.d ~/.emacs.d.gnu
+  mv ~/.emacs.doom ~/.emacs.d
+}
+
+dege() {
+  mv ~/.emacs.d ~/.emacs.doom
+  mv ~/.emacs.d.gnu ~/.emacs.d
 }
 #+end_src
 
@@ -148,6 +124,7 @@ alias du='du -kh'
 alias df='df -kTh'
 alias r='source ~/.zshrc'
 #+end_src
+
 ** Lsd
 #+begin_src shell
 alias ls='lsd --color always'
@@ -155,10 +132,11 @@ alias lls='lsd -1'
 alias la='ls -a'
 alias lx='ls -X'
 alias lk='ls -S'.
-alias ld="ls -l --group-dirs first"
-alias lh="ls -a -l --group-dirs first"
-alias lr='ld --tree'
+alias ld="ls -l --group-dirs first --blocks permission --blocks size --blocks date --blocks name --date relative -I desktop.ini"
+alias lh="ld -a"
+alias lr='ld --tree -I node_modules'
 #+end_src
+
 ** Git
 #+begin_src shell
 alias addup='git add -u'
@@ -172,29 +150,46 @@ alias push='git push origin'
 alias stat='git status'  # 'status' is protected name so using 'stat' instead
 alias config='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 #+end_src
+
 ** Apps
 #+begin_src shell
 alias vlc='/c/Program\ Files/VideoLAN/VLC/vlc.exe'
 alias sp='speedtest'
 alias vp='psiphon'
-alias doom='~/.emacs.d/bin/doom'
 alias ex='explorer .'
+alias nes='nestopia'
+alias pc='processing'
+alias g='gcc'
+alias r='./a.exe'
+alias xal='/c/Users/Sujal\ Bajracharya/Desktop/Projects/C/xalendar/xal.exe'
+alias lg='lazygit'
 #+end_src
-** Emacs
+
+** Editor
 #+begin_src shell
 alias emacsw='emacsclientw'
-alias emacw='emacsclientw -c'
-alias e='runemacs'
+alias e='emacsclientw -c'
+alias re='runemacs'
+alias n='nvim'
+alias evim='nvim'
 #+end_src
-** Goto Directories
+
+** Chocolatey
+#+begin_src shell
+alias ci='choco install'
+alias cu='choco uninstall'
+alias cl='clist -lo'
+alias cs='choco search'
+#+end_src
+
+** Bookmarks
 #+begin_src shell
 alias it='cd ~/Desktop/Projects'
+alias itc='cd ~/Desktop/Projects/C'
+alias itr='cd ~/Desktop/Projects/Rust'
 alias og='cd ~/Desktop/Org'
 alias nc='cd ~/AppData/Local/nvim'
-alias ec='cd ~/.doom.d'
-#+end_src
-** Emacs Bookmarks
-#+begin_src shell
-alias ze='emacsclientw -c ~/zshrc.org'
-alias ve='emacsclientw -c ~/.vieb/viebrc'
+alias ec='cd ~/.emacs.d'
+alias dc='cd ~/.doom.d'
+alias ze='emacsclientw -c ~/.zshrc'
 #+end_src
