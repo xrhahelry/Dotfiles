@@ -1,0 +1,10 @@
+#+TITLE: Bare Repo README
+#+AUTHOR: Sujal Bajracharya
+
+* My Dot Files Repo
+In this repo I store all my dotfiles from my home folder. I use windows so it only has the bashrc and the zshrc.
+
+* DT's bare Repo video
+This repo is actually a bare repository rather than a normal one which makes use of git in the home folder possible.
+[[https://www.youtube.com/watch?v=tBoLDpTWVOM&t=686s]]
+I hope this will be helpful if you want to create your own git bare repository.
