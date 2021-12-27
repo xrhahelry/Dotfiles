@@ -1,4 +1,3 @@
-#+TITLE: Bare Repo README
 #+AUTHOR: Sujal Bajracharya
 
 * My Dot Files Repo
