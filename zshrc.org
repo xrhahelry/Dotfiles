@@ -10,6 +10,7 @@
   - [[#general][General]]
   - [[#lsd][Lsd]]
   - [[#git][Git]]
+  - [[#bare][Bare]]
   - [[#apps][Apps]]
   - [[#editor][Editor]]
   - [[#chocolatey][Chocolatey]]
@@ -106,7 +107,7 @@ dege() {
 * Aliases
 ** General
 #+begin_src shell
-alias cls="clear"
+alias cls="reset"
 alias c="clear"
 alias c:='cd c:'
 alias d:='cd d:'
@@ -148,7 +149,16 @@ alias commit='git commit -m'
 alias pull='git pull origin'
 alias push='git push origin'
 alias stat='git status'  # 'status' is protected name so using 'stat' instead
+#+end_src
+
+** Bare
+#+begin_src shell
 alias config='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+alias conadd='config add'
+alias concom='config commit -m'
+alias conpush='config push'
+alias conpull='config pull'
+alias constat='config status'
 #+end_src
 
 ** Apps
@@ -191,5 +201,5 @@ alias og='cd ~/Desktop/Org'
 alias nc='cd ~/AppData/Local/nvim'
 alias ec='cd ~/.emacs.d'
 alias dc='cd ~/.doom.d'
-alias ze='emacsclientw -c ~/.zshrc'
+alias ze='emacsclientw -c ~/zshrc.org'
 #+end_src
