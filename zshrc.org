@@ -3,9 +3,10 @@
 #+PROPERTY: header-args :tangle .zshrc
 
 * Table of contents :toc:
-- [[#oh-my-zsh-settings][Oh-My-Zsh Settings]]
 - [[#the-exports][The Exports]]
 - [[#custom-functions][Custom Functions]]
+  - [[#changing-emacs-config][Changing emacs config]]
+  - [[#short-version-of-pwd][Short version of pwd]]
 - [[#aliases][Aliases]]
   - [[#general][General]]
   - [[#lsd][Lsd]]
@@ -15,22 +16,7 @@
   - [[#editor][Editor]]
   - [[#chocolatey][Chocolatey]]
   - [[#bookmarks][Bookmarks]]
-
-* Oh-My-Zsh Settings
-#+begin_src shell
-export ZSH="/c/Users/Sujal Bajracharya/.oh-my-zsh"
-ZSH_THEME="robbyrussell"
-
-HYPHEN_INSENSITIVE="true"
-DISABLE_UPDATE_PROMPT="true"
-DISABLE_AUTO_TITLE="true"
-ENABLE_CORRECTION="true"
-DISABLE_UNTRACKED_FILES_DIRTY="true"
-HIST_STAMPS="yyyy-mm-dd"
-DISABLE_UPDATE_PROMPT="true"
-
-source $ZSH/oh-my-zsh.sh
-#+end_src
+- [[#oh-my-zsh-settings][Oh-My-Zsh Settings]]
 
 * The Exports
 #+begin_src shell
@@ -41,58 +27,8 @@ export ALTERNATE_EDITOR="emacsclientw -c"
 #+end_src
 
 * Custom Functions
+** Changing emacs config
 #+begin_src shell
-gal() {
-    echo "h  => show history of commands"
-    echo "du => show size of item in current directory"
-    echo "df => show size info of devices harddisk"
-    echo "r  => source bashrc"
-}
-
-lal() {
-    echo "la => show all item in directory"
-    echo "ld => detailed output"
-    echo "ld => detailed output with hidden items"
-    echo "lx => sort ls output by extension."
-    echo "lk => sort ls output by size, biggest last."
-    echo "lr => output ls recursively."
-}
-
-aal() {
-    echo "ex  => explorer here"
-    echo "vp  => open vpn"
-    echo "vlc => open vlc"
-    echo "sp  => run speedtest"
-    echo "nes => open nestopia"
-    echo "pc  => open processing"
-}
-
-eal() {
-    echo "emacw  => emacsclient in new frame"
-    echo "emacsw => connet to open frame"
-    echo "e      => runemacs"
-}
-
-cal() {
-    echo "ci => install package"
-    echo "cu => uninstall package"
-    echo "cs => search package"
-    echo "cl => list packages"
-}
-
-dal() {
-    echo "nc => nvim config"
-    echo "ec => doom emacs config"
-    echo "it => projects directory"
-    echo "og => org directory"
-}
-
-bal() {
-    echo "ze => zshrc"
-    echo "ve => viebrc"
-    echo "se => starhip config"
-}
-
 gede() {
   mv ~/.emacs.d ~/.emacs.d.gnu
   mv ~/.emacs.doom ~/.emacs.d
@@ -103,12 +39,25 @@ dege() {
   mv ~/.emacs.d.gnu ~/.emacs.d
 }
 #+end_src
+** Short version of pwd
+#+begin_src shell
+function spwd() {
+  local paths=(${PWD/$HOME/\~}) 'cur_dir'
+  paths=(${(s:/:)paths})
+
+  for directory in ${paths[@]}
+  do
+    cur_dir+="${directory:0:1}"
+    cur_dir+='/'
+  done
+  echo ${cur_dir: :-1}
+}
+#+end_src
 
 * Aliases
 ** General
 #+begin_src shell
-alias cls="reset"
-alias c="clear"
+alias cls="clear"
 alias c:='cd c:'
 alias d:='cd d:'
 alias rm='rm -i'
@@ -171,13 +120,13 @@ alias nes='nestopia'
 alias pc='processing'
 alias g='gcc'
 alias r='./a.exe'
-alias xal='/c/Users/Sujal\ Bajracharya/Desktop/Projects/C/xalendar/xal.exe'
+alias xal='/c/Users/Sujal\ Bajracharya/Desktop/Apps/xal.exe'
 alias lg='lazygit'
 #+end_src
 
 ** Editor
 #+begin_src shell
-alias emacsw='emacsclientw'
+alias ew='emacsclientw'
 alias e='emacsclientw -c'
 alias re='runemacs'
 alias n='nvim'
@@ -195,11 +144,25 @@ alias cs='choco search'
 ** Bookmarks
 #+begin_src shell
 alias it='cd ~/Desktop/Projects'
-alias itc='cd ~/Desktop/Projects/C'
-alias itr='cd ~/Desktop/Projects/Rust'
 alias og='cd ~/Desktop/Org'
 alias nc='cd ~/AppData/Local/nvim'
 alias ec='cd ~/.emacs.d'
 alias dc='cd ~/.doom.d'
 alias ze='emacsclientw -c ~/zshrc.org'
+#+end_src
+
+* Oh-My-Zsh Settings
+#+begin_src shell
+export ZSH="/c/Users/Sujal Bajracharya/Zsh"
+ZSH_THEME="robbyrussell"
+
+HYPHEN_INSENSITIVE="true"
+DISABLE_UPDATE_PROMPT="true"
+DISABLE_AUTO_TITLE="true"
+ENABLE_CORRECTION="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+HIST_STAMPS="yyyy-mm-dd"
+DISABLE_UPDATE_PROMPT="true"
+
+source $ZSH/oh-my-zsh.sh
 #+end_src
